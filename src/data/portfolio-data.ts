@@ -6,6 +6,8 @@ export interface ExperienceItem {
   description: string;
   tags: string[];
   details?: string;
+  logo?: string; // placeholder for future logo integration
+  link?: string;
 }
 
 export interface ProjectItem {
@@ -26,63 +28,58 @@ export interface SkillCategory {
 export const placeholderExperiences: ExperienceItem[] = [
   {
     id: "exp-1",
-    title: "Machine Learning Research Intern",
-    company: "Research Lab — University",
-    period: "Summer 2025",
-    description: "Developed novel approaches to geometric deep learning, applying differential geometry concepts to graph neural networks.",
-    tags: ["PyTorch", "Python", "GNNs", "Research"],
-    details: "Detailed description of your work, methodologies, and outcomes. Replace this with your actual experience.",
+    title: "ML + 3D Parametric Modeling Research Assistant",
+    company: "Hong Kong University of Science and Technology (HKUST)",
+    period: "Summer 2026",
+    description:
+      "Incoming research assistant under the advising of Professor Rob Scharff, working at the intersection of machine learning and 3D parametric modeling.",
+    tags: ["Rhino", "Grasshopper"],
+    logo: undefined, // replace with logo path
   },
   {
     id: "exp-2",
-    title: "3D Artist & Technical Director",
-    company: "Creative Studio",
-    period: "2024 — Present",
-    description: "Created immersive 3D environments and procedural art installations exploring mathematical structures in visual form.",
-    tags: ["Blender", "Unity", "Houdini", "GLSL"],
-    details: "Detailed description of your creative and technical work. Replace this with your actual experience.",
+    title: "Biomedical Machine Learning Intern",
+    company: "PsiThera (Psivant Therapeutics)",
+    period: "March 2026",
+    description:
+      "Working on a binding affinity machine learning project for a computational drug discovery firm.",
+    tags: ["PyTorch", "JAX", "scikit-learn", "MDAnalysis", "ProLIF", "h5py"],
+    logo: undefined,
   },
   {
     id: "exp-3",
-    title: "Software Engineering Intern",
-    company: "Tech Company",
-    period: "Summer 2024",
-    description: "Built full-stack features for a spatial computing platform, working across the frontend and backend.",
-    tags: ["React", "TypeScript", "Node.js", "PostgreSQL"],
-    details: "Detailed description of your engineering contributions. Replace this with your actual experience.",
+    title: "Quantitative Research Assistant",
+    company: "Map of Life / Jetz Lab",
+    period: "Fall 2025 —",
+    description:
+      "Conducting research with Dr. Kevin Winner on pool-based active learning strategies for optimization of biodiversity sampling under limited survey budgets. Integrated functions of entropy / expected information gain into active learning loop to prioritize high-value ecological sites through AUC plots, running on Yale's high performance computing cluster.",
+    tags: ["R", "terra / sf", "Conda", "HPC"],
+    logo: undefined,
+  },
+  {
+    id: "exp-4",
+    title: "Machine Learning Research Intern",
+    company: "RCM Alternatives",
+    period: "Summer 2025",
+    description:
+      "Designed supervised ML models for price direction prediction on messy time series data. Implemented logistic regression, random forests, SVMs, and LSTM neural networks. Feature engineering on market, on-chain, and macroeconomic data. Authored a 28-page technical white paper on ML mathematics and methods (under internal review).",
+    tags: ["TensorFlow", "scikit-learn", "numpy", "pandas"],
+    logo: undefined,
+  },
+  {
+    id: "exp-5",
+    title: "Published Academic Research",
+    company: "Applied Stochastic Models in Business and Industry — Wiley",
+    period: "2023",
+    description:
+      '"On the probability of Magnus Carlsen reaching 2900" published in a Wiley peer-reviewed journal. Evaluated chess Elo rating system by learning probabilistic modeling (Brownian motion model). Top 10% most viewed papers in Wiley for 2023.',
+    tags: ["R", "Excel"],
+    link: "https://doi.org/10.1002/asmb.2745",
+    logo: undefined,
   },
 ];
 
-export const placeholderProjects: ProjectItem[] = [
-  {
-    id: "proj-1",
-    title: "Geometric Neural Networks",
-    description: "A framework for applying Riemannian geometry to neural network architectures, enabling learning on non-Euclidean manifolds.",
-    tags: ["Python", "PyTorch", "Differential Geometry"],
-    details: "Full project writeup with technical details, architecture decisions, and results.",
-  },
-  {
-    id: "proj-2",
-    title: "Procedural Möbius Worlds",
-    description: "Interactive 3D experience where users traverse procedurally generated landscapes on non-orientable surfaces.",
-    tags: ["Three.js", "WebGL", "GLSL", "React"],
-    details: "Full project writeup with creative process and technical implementation.",
-  },
-  {
-    id: "proj-3",
-    title: "Spatial Computing Toolkit",
-    description: "An open-source toolkit for building mixed-reality experiences with hand tracking and spatial anchoring.",
-    tags: ["Unity", "C#", "ARKit", "Computer Vision"],
-    details: "Full project writeup with architecture and demo videos.",
-  },
-  {
-    id: "proj-4",
-    title: "Topological Data Analysis",
-    description: "Visualization tool for persistent homology, making abstract algebraic topology concepts tangible and interactive.",
-    tags: ["D3.js", "Python", "Topology", "React"],
-    details: "Full project writeup with mathematical foundations and visualization approach.",
-  },
-];
+export const placeholderProjects: ProjectItem[] = [];
 
 export const placeholderSkills: SkillCategory[] = [
   { name: "Languages", skills: ["Python", "TypeScript", "C++", "GLSL", "C#", "SQL"] },
