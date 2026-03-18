@@ -42,6 +42,7 @@
     --radius: 0.75rem;
 
     /* Custom tokens */
+    --neon-black: 0 0% 4%;
     --neon-glow: 175 85% 55%;
     --cream: 42 40% 85%;
     --warm-gold: 38 60% 70%;
@@ -100,8 +101,12 @@
 
   .gradient-mesh {
     background: 
-      radial-gradient(ellipse at 20% 50%, hsl(var(--primary) / 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, hsl(var(--accent) / 0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 80%, hsl(var(--secondary) / 0.05) 0%, transparent 50%);
+      radial-gradient(ellipse at 20% 50%, hsl(var(--primary) / 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, hsl(var(--accent) / 0.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, hsl(var(--secondary) / 0.02) 0%, transparent 50%);
+  }
+
+  .neon-black-bg {
+    background-color: hsl(var(--neon-black));
   }
 }

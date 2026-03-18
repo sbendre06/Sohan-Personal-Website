@@ -1,26 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Suspense, useState } from "react";
-import MobiusScene from "@/components/MobiusScene";
+import { Suspense } from "react";
+import JuliaSetScene from "@/components/JuliaSetScene";
 
 const Index = () => {
   const navigate = useNavigate();
-  const [isRotating, setIsRotating] = useState(false);
 
   return (
-    <div className="relative bg-background geometric-grid min-h-screen">
+    <div className="relative min-h-screen neon-black-bg">
+      {/* Julia set fractal background */}
+      <div className="absolute inset-0 z-0">
+        <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
+          <JuliaSetScene />
+        </Suspense>
+      </div>
+
       {/* Ambient gradient mesh */}
       <div className="fixed inset-0 gradient-mesh pointer-events-none" />
 
-      {/* Hero Section — 3D Möbius strip + overlay content */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden">
-        {/* 3D Möbius strip background */}
-        <div className="absolute inset-0 z-0">
-          <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
-            <MobiusScene isRotating={isRotating} />
-          </Suspense>
-        </div>
-
         <div className="relative z-10 text-center">
           <p className="text-sm font-mono text-secondary tracking-[0.3em] uppercase mb-4 animate-slide-up">
             Applied Mathematics · Computing & The Arts
@@ -53,16 +52,6 @@ const Index = () => {
             ))}
           </div>
         </div>
-
-        {/* Rotate button — bottom right */}
-        <Button
-          variant={isRotating ? "default" : "outline"}
-          size="sm"
-          className="absolute bottom-8 right-8 z-20 font-mono text-sm border-border/50 hover:neon-border"
-          onClick={() => setIsRotating((prev) => !prev)}
-        >
-          Rotate
-        </Button>
 
         {/* Decorative scroll indicator */}
         <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-center gap-3 text-muted-foreground">
