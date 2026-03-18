@@ -30,14 +30,14 @@ const Index = () => {
             Applied Mathematics · Computing & The Arts
           </p>
           <h1 className="text-6xl md:text-8xl font-display font-bold mb-6 animate-slide-up">
-            <span className="neon-text">Sohan</span>{" "}
-            <span className="text-cream">Bendre</span>
+            <span className="neon-text">Sohan</span> <span className="text-cream">Bendre</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-10 animate-slide-up font-light">
-            Exploring the intersection of geometric mathematics, machine learning, and spatial computing through code and art.
+            Exploring the intersection of geometric mathematics, machine learning, and spatial computing through code
+            and art.
           </p>
           <Button variant="neon" size="lg" className="animate-slide-up">
-            Enter the Möbius
+            ENTER
           </Button>
         </div>
 
@@ -53,14 +53,13 @@ const Index = () => {
       <SectionShell id="about" title="About" subtitle="The path begins here.">
         <div className="glass-panel p-8 md:p-10">
           <p className="text-foreground leading-relaxed text-lg mb-6">
-            I'm a student double majoring in Applied Mathematics and Computing & The Arts, 
-            fascinated by the places where rigorous mathematical thinking meets creative expression. 
-            My work spans machine learning research, 3D art, and spatial computing — always searching 
-            for the geometric structures that connect them.
+            I'm a student double majoring in Applied Mathematics and Computing & The Arts, fascinated by the places
+            where rigorous mathematical thinking meets creative expression. My work spans machine learning research, 3D
+            art, and spatial computing — always searching for the geometric structures that connect them.
           </p>
           <p className="text-muted-foreground leading-relaxed">
-            Replace this with your personal statement. Talk about your journey, what drives you, 
-            and where you're headed. This is your space to be authentic and compelling.
+            Replace this with your personal statement. Talk about your journey, what drives you, and where you're
+            headed. This is your space to be authentic and compelling.
           </p>
         </div>
       </SectionShell>
@@ -97,9 +96,7 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="py-12 px-6 text-center border-t border-border/30">
-        <p className="text-sm text-muted-foreground font-mono">
-          Sohan Bendre · {new Date().getFullYear()}
-        </p>
+        <p className="text-sm text-muted-foreground font-mono">Sohan Bendre · {new Date().getFullYear()}</p>
       </footer>
 
       {/* Detail Modals */}
