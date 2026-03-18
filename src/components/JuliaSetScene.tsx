@@ -10,10 +10,10 @@ import {
   type Complex,
 } from "@/lib/julia-set";
 
-const GRID_RES = 120;
+const GRID_RES = 70;
 const MAX_ITER = 256;
-const SIGMA = 0.012;
-const POINT_SCALE = 0.022;
+const SIGMA = 0.015;
+const POINT_SCALE = 0.065;
 const MIN_ITER_THRESHOLD = 2;
 
 /** Map iteration count to color (reference: purple exterior → blue transition → orange core) */
@@ -32,10 +32,10 @@ function JuliaSetPoints({ c }: { c: Complex }) {
   const pointsRef = useRef<THREE.Points>(null);
   const { positions, colors } = useMemo(() => {
     const pts = generateJuliaPoints(c, GRID_RES, MAX_ITER, SIGMA, MIN_ITER_THRESHOLD, {
-      xMin: -1.5,
-      xMax: 1.5,
-      yMin: -1.0,
-      yMax: 1.0,
+      xMin: -1.7,
+      xMax: 1.7,
+      yMin: -1.15,
+      yMax: 1.15,
     });
     const pos = new Float32Array(pts.length * 3);
     const col = new Float32Array(pts.length * 3);
@@ -60,26 +60,30 @@ function JuliaSetPoints({ c }: { c: Complex }) {
   }, [positions, colors]);
 
   const material = useMemo(() => {
-    // Soft circle texture (white = vertex colors show through)
-    const size = 64;
+    // High-res soft circle texture for crisp rendering
+    const size = 256;
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext("2d")!;
     const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
     g.addColorStop(0, "rgba(255,255,255,1)");
-    g.addColorStop(0.5, "rgba(255,255,255,0.5)");
+    g.addColorStop(0.4, "rgba(255,255,255,0.8)");
+    g.addColorStop(0.7, "rgba(255,255,255,0.3)");
     g.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, size, size);
     const tex = new THREE.CanvasTexture(canvas);
+    tex.minFilter = THREE.LinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    tex.generateMipmaps = false;
     tex.needsUpdate = true;
 
     return new THREE.PointsMaterial({
-      size: POINT_SCALE * 2.5,
+      size: POINT_SCALE * 2.2,
       map: tex,
       transparent: true,
-      alphaTest: 0.1,
+      alphaTest: 0.05,
       depthWrite: false,
       vertexColors: true,
       sizeAttenuation: true,
@@ -127,13 +131,20 @@ export default function JuliaSetScene() {
   return (
     <div className="absolute inset-0 w-full h-full bg-[#0a0a0a]">
       <Canvas
-        camera={{ position: [0, 0, 2.8], fov: 55 }}
+        camera={{ position: [0, 0, 2.2], fov: 58 }}
         gl={{ antialias: true, alpha: true }}
-        dpr={[1, 2]}
+        dpr={[2, 2]}
       >
         <color attach="background" args={["#0a0a0a"]} />
         <JuliaSetPoints c={c} />
       </Canvas>
+      {/* Vignette: fade to black at screen edges */}
+      <div
+        className="absolute inset-0 pointer-events-none z-10"
+        style={{
+          background: "radial-gradient(ellipse 85% 75% at 50% 50%, transparent 0%, transparent 50%, rgba(10,10,10,0.3) 80%, rgba(10,10,10,0.95) 100%)",
+        }}
+      />
     </div>
   );
 }
