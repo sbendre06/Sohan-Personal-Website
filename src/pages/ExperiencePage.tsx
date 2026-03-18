@@ -22,7 +22,23 @@ const ExperiencePage = () => {
         subtitle={selected ? `${selected.company} · ${selected.period}` : ""}
         tags={selected?.tags}
       >
-        <p>{selected?.details}</p>
+        {selected?.details && (
+          <div className="space-y-2">
+            {selected.details.split("\n\n").map((line, i) => (
+              <p key={i}>{line}</p>
+            ))}
+          </div>
+        )}
+        {selected?.link && (
+          <a
+            href={selected.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-4 text-sm font-mono text-primary hover:underline"
+          >
+            View Publication →
+          </a>
+        )}
       </DetailModal>
     </OverlayLayout>
   );

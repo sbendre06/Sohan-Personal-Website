@@ -32,9 +32,11 @@ export const placeholderExperiences: ExperienceItem[] = [
     company: "Hong Kong University of Science and Technology (HKUST)",
     period: "Summer 2026",
     description:
-      "Incoming research assistant under the advising of Professor Rob Scharff, working at the intersection of machine learning and 3D parametric modeling.",
+      "Incoming research assistant working at the intersection of machine learning and 3D parametric modeling.",
     tags: ["Rhino", "Grasshopper"],
-    logo: undefined, // replace with logo path
+    details:
+      "Incoming research assistant under the advising of Professor Rob Scharff, working at the intersection of machine learning and 3D parametric modeling.",
+    logo: undefined,
   },
   {
     id: "exp-2",
@@ -42,8 +44,10 @@ export const placeholderExperiences: ExperienceItem[] = [
     company: "PsiThera (Psivant Therapeutics)",
     period: "March 2026",
     description:
-      "Working on a binding affinity machine learning project for a computational drug discovery firm.",
+      "Binding affinity ML project for a computational drug discovery firm.",
     tags: ["PyTorch", "JAX", "scikit-learn", "MDAnalysis", "ProLIF", "h5py"],
+    details:
+      "Working on a binding affinity machine learning project for computational drug discovery firm.\n\nTech stack: PyTorch, JAX, scikit-learn + molecular dynamics libraries (MDAnalysis, ProLIF, h5py).",
     logo: undefined,
   },
   {
@@ -52,8 +56,10 @@ export const placeholderExperiences: ExperienceItem[] = [
     company: "Map of Life / Jetz Lab",
     period: "Fall 2025 —",
     description:
-      "Conducting research with Dr. Kevin Winner on pool-based active learning strategies for optimization of biodiversity sampling under limited survey budgets. Integrated functions of entropy / expected information gain into active learning loop to prioritize high-value ecological sites through AUC plots, running on Yale's high performance computing cluster.",
+      "Pool-based active learning strategies for optimization of biodiversity sampling under limited survey budgets.",
     tags: ["R", "terra / sf", "Conda", "HPC"],
+    details:
+      "• Conducting research with Dr. Kevin Winner on pool-based active learning strategies for optimization of biodiversity sampling, under limited survey budgets\n\n• Integrated functions of entropy / expected information gain into active learning loop to prioritize high-value ecological sites through AUC plots, running on Yale's high performance computing cluster",
     logo: undefined,
   },
   {
@@ -62,8 +68,10 @@ export const placeholderExperiences: ExperienceItem[] = [
     company: "RCM Alternatives",
     period: "Summer 2025",
     description:
-      "Designed supervised ML models for price direction prediction on messy time series data. Implemented logistic regression, random forests, SVMs, and LSTM neural networks. Feature engineering on market, on-chain, and macroeconomic data. Authored a 28-page technical white paper on ML mathematics and methods (under internal review).",
+      "Supervised ML models for price direction prediction on messy time series data. Authored a 28-page technical white paper.",
     tags: ["TensorFlow", "scikit-learn", "numpy", "pandas"],
+    details:
+      "• Designed supervised machine learning models for price direction prediction on messy time series data\n\n• Implemented logistic regression, random forests, support vector machines, and LSTM neural networks\n\n• Feature engineering on market, on-chain, and macroeconomic data\n\n• Wrote a 28-page technical white paper on ML mathematics and methods (under internal review)",
     logo: undefined,
   },
   {
@@ -72,8 +80,10 @@ export const placeholderExperiences: ExperienceItem[] = [
     company: "Applied Stochastic Models in Business and Industry — Wiley",
     period: "2023",
     description:
-      '"On the probability of Magnus Carlsen reaching 2900" published in a Wiley peer-reviewed journal. Evaluated chess Elo rating system by learning probabilistic modeling (Brownian motion model). Top 10% most viewed papers in Wiley for 2023.',
+      '"On the probability of Magnus Carlsen reaching 2900" — Wiley peer-reviewed, top 10% most viewed for 2023.',
     tags: ["R", "Excel"],
+    details:
+      '• "On the probability of Magnus Carlsen reaching 2900" published in Applied Stochastic Models in Business and Industry Wiley Peer-Reviewed Journal\n\n• Evaluated chess Elo rating system by learning probabilistic modeling (Brownian motion model)\n\n• Top 10% most viewed papers in Wiley for 2023',
     link: "https://doi.org/10.1002/asmb.2745",
     logo: undefined,
   },
