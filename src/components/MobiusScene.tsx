@@ -35,13 +35,15 @@ export default function MobiusScene({
   }, [onReady]);
 
   return (
-    <div className="absolute inset-0 w-full h-full">
+    <div className="absolute inset-0 w-full h-full bg-transparent">
       <Canvas
         camera={{ position: [0, 0, 4], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0);
+        }}
         dpr={[1, 2]}
       >
-        <color attach="background" args={["transparent"]} />
         <SceneBackground />
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 5, 5]} intensity={1.2} />
