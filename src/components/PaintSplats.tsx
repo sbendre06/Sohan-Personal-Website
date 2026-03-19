@@ -87,14 +87,21 @@ export default function PaintSplats() {
             height: splat.size,
             maxWidth: splat.maxSize,
             maxHeight: splat.maxSize,
-            backgroundColor: COLORS[i % COLORS.length],
-            opacity: 0.5 + (i % 3) * 0.03,
             transform: `translate(-50%, -50%) rotate(${splat.rot}deg)`,
-            ...splatMask,
+            ...get3DStyle(COLORS[i % COLORS.length], 4 + (i % 3) * 2),
           }}
-        />
+        >
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundColor: COLORS[i % COLORS.length],
+              opacity: 0.55 + (i % 3) * 0.03,
+              ...splatMask,
+            }}
+          />
+        </div>
       ))}
-      {/* Bottom-right cluster — 7 splats from center ~86vw, 86vh */}
+      {/* Bottom-right cluster */}
       {BOTTOM_RIGHT_OFFSETS.map((splat, i) => (
         <div
           key={`br-${i}`}
@@ -106,12 +113,19 @@ export default function PaintSplats() {
             height: splat.size,
             maxWidth: splat.maxSize,
             maxHeight: splat.maxSize,
-            backgroundColor: COLORS[(i + 4) % COLORS.length],
-            opacity: 0.5 + (i % 3) * 0.03,
             transform: `translate(-50%, -50%) rotate(${splat.rot}deg)`,
-            ...splatMask,
+            ...get3DStyle(COLORS[(i + 4) % COLORS.length], 4 + (i % 3) * 2),
           }}
-        />
+        >
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundColor: COLORS[(i + 4) % COLORS.length],
+              opacity: 0.55 + (i % 3) * 0.03,
+              ...splatMask,
+            }}
+          />
+        </div>
       ))}
     </div>
   );
