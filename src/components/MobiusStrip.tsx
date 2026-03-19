@@ -159,9 +159,7 @@ export default function MobiusStrip({
       </mesh>
 
         {/* Neon orange midline */}
-        <line geometry={lineGeometry}>
-          <lineBasicMaterial color="#ff6b35" />
-        </line>
+        <primitive object={new THREE.Line(lineGeometry, new THREE.LineBasicMaterial({ color: '#ff6b35' }))} />
 
         {/* Bright white point rotating along midline — radius is first arg */}
         <mesh ref={sphereRef}>
