@@ -58,6 +58,19 @@ const splatMask = {
   WebkitMaskPosition: "center",
 };
 
+/** Generates a 3D-protruding effect using layered drop-shadows matching the splat color */
+function get3DStyle(color: string, depth: number = 6) {
+  const shadows = [];
+  for (let i = 1; i <= depth; i++) {
+    shadows.push(`drop-shadow(${i}px ${i}px ${i * 0.5}px rgba(0,0,0,0.25))`);
+  }
+  // Add a highlight glow on top
+  shadows.unshift(`drop-shadow(-1px -1px 2px rgba(255,255,255,0.15))`);
+  return {
+    filter: shadows.join(" "),
+  };
+}
+
 /** Big paint splats stochastically overlaid from center of top-left and bottom-right */
 export default function PaintSplats() {
   return (
