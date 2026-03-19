@@ -29,9 +29,28 @@ const Index = () => {
       {/* Hero Section — pointer-events-none so fractal receives hover; only buttons capture clicks */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden pointer-events-none">
         <div className="relative z-10 text-center pointer-events-none">
-          <h1 className="text-6xl md:text-8xl font-brush font-bold mb-6 animate-slide-up">
-            <span className="neon-text">Sohan</span> <span className="text-cream">Bendre</span>
-          </h1>
+          <div className="mb-6 animate-slide-up flex flex-col items-center">
+            <h1 className="text-5xl md:text-8xl font-neon font-bold uppercase tracking-[0.15em]">
+              <span className="neon-text">Sohan</span>{" "}
+              <span className="text-cream">Bendre</span>
+            </h1>
+            {/* Reflection */}
+            <h1
+              aria-hidden="true"
+              className="text-5xl md:text-8xl font-neon font-bold uppercase tracking-[0.15em] select-none pointer-events-none"
+              style={{
+                transform: 'scaleY(-1)',
+                maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, transparent 60%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, transparent 60%)',
+                marginTop: '-0.1em',
+                opacity: 0.3,
+                filter: 'blur(1px)',
+              }}
+            >
+              <span className="neon-text">Sohan</span>{" "}
+              <span className="text-cream">Bendre</span>
+            </h1>
+          </div>
 
           {/* Navigation links — will be replaced by Möbius strip interactions */}
           <div className="flex flex-wrap justify-center gap-3 animate-slide-up pointer-events-auto">
