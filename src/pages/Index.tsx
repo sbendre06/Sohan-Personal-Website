@@ -29,7 +29,7 @@ const Index = () => {
       {/* Hero Section — pointer-events-none so fractal receives hover; only buttons capture clicks */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden pointer-events-none">
         <div className="relative z-10 text-center pointer-events-none">
-          <h1 className="text-6xl md:text-8xl font-display font-bold mb-6 animate-slide-up">
+          <h1 className="text-6xl md:text-8xl font-brush font-bold mb-6 animate-slide-up">
             <span className="neon-text">Sohan</span> <span className="text-cream">Bendre</span>
           </h1>
 
