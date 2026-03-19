@@ -27,22 +27,23 @@ const Index = () => {
       <PaintSplats />
 
       {/* Hero Section — pointer-events-none so fractal receives hover; only buttons capture clicks */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden pointer-events-none">
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden pointer-events-none pt-16">
         <div className="relative z-10 text-center pointer-events-none">
-          <div className="mb-6 animate-slide-up flex flex-col items-center">
-            <h1 className="text-5xl md:text-8xl font-neon font-bold uppercase tracking-[0.15em]">
+          <div className="mb-6 animate-slide-up flex flex-col items-center leading-none">
+            <h1 className="text-5xl md:text-8xl font-neon font-bold uppercase tracking-[0.15em] italic">
               <span className="neon-text">Sohan</span>{" "}
               <span className="text-cream">Bendre</span>
             </h1>
             {/* Reflection */}
             <h1
               aria-hidden="true"
-              className="text-5xl md:text-8xl font-neon font-bold uppercase tracking-[0.15em] select-none pointer-events-none"
+              className="text-5xl md:text-8xl font-neon font-bold uppercase tracking-[0.15em] italic select-none pointer-events-none"
               style={{
                 transform: 'scaleY(-1)',
                 maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, transparent 60%)',
                 WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, transparent 60%)',
-                marginTop: '-0.1em',
+                marginTop: '0px',
+                lineHeight: '0.9',
                 opacity: 0.3,
                 filter: 'blur(1px)',
               }}
