@@ -58,6 +58,19 @@ const splatMask = {
   WebkitMaskPosition: "center",
 };
 
+/** Generates a 3D-protruding effect using layered drop-shadows matching the splat color */
+function get3DStyle(color: string, depth: number = 6) {
+  const shadows = [];
+  for (let i = 1; i <= depth; i++) {
+    shadows.push(`drop-shadow(${i}px ${i}px ${i * 0.5}px rgba(0,0,0,0.25))`);
+  }
+  // Add a highlight glow on top
+  shadows.unshift(`drop-shadow(-1px -1px 2px rgba(255,255,255,0.15))`);
+  return {
+    filter: shadows.join(" "),
+  };
+}
+
 /** Big paint splats stochastically overlaid from center of top-left and bottom-right */
 export default function PaintSplats() {
   return (
@@ -74,14 +87,21 @@ export default function PaintSplats() {
             height: splat.size,
             maxWidth: splat.maxSize,
             maxHeight: splat.maxSize,
-            backgroundColor: COLORS[i % COLORS.length],
-            opacity: 0.5 + (i % 3) * 0.03,
             transform: `translate(-50%, -50%) rotate(${splat.rot}deg)`,
-            ...splatMask,
+            ...get3DStyle(COLORS[i % COLORS.length], 4 + (i % 3) * 2),
           }}
-        />
+        >
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundColor: COLORS[i % COLORS.length],
+              opacity: 0.55 + (i % 3) * 0.03,
+              ...splatMask,
+            }}
+          />
+        </div>
       ))}
-      {/* Bottom-right cluster — 7 splats from center ~86vw, 86vh */}
+      {/* Bottom-right cluster */}
       {BOTTOM_RIGHT_OFFSETS.map((splat, i) => (
         <div
           key={`br-${i}`}
@@ -93,12 +113,19 @@ export default function PaintSplats() {
             height: splat.size,
             maxWidth: splat.maxSize,
             maxHeight: splat.maxSize,
-            backgroundColor: COLORS[(i + 4) % COLORS.length],
-            opacity: 0.5 + (i % 3) * 0.03,
             transform: `translate(-50%, -50%) rotate(${splat.rot}deg)`,
-            ...splatMask,
+            ...get3DStyle(COLORS[(i + 4) % COLORS.length], 4 + (i % 3) * 2),
           }}
-        />
+        >
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundColor: COLORS[(i + 4) % COLORS.length],
+              opacity: 0.55 + (i % 3) * 0.03,
+              ...splatMask,
+            }}
+          />
+        </div>
       ))}
     </div>
   );
