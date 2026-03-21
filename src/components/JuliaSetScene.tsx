@@ -1,16 +1,17 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useRef, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { C_DEFAULT, type Complex } from "@/lib/julia-set";
 
-const HOVER_RADIUS = 0.27; // NDC units, ~25% of screen
-const FAR = 10; // Cursor "off" position
-const TRAIL_MAX = 16;
-const HOLD_TIME = 1; // seconds before fade starts
-const FADE_TIME = 0.8; // seconds to fade out
-const TRAIL_INTERVAL = 0.2; // add position every 80ms
+const HOVER_RADIUS = 0.27;
+const FAR = 10;
+const TRAIL_MAX = 12;
+const HOLD_TIME = 1;
+const FADE_TIME = 0.8;
+const TRAIL_INTERVAL = 0.12;
+const MAX_DELTA = 0.05; // clamp to avoid tab-return spike
 
 /** Convert screen coords to NDC (-1 to 1) for a given rect */
 function screenToNDC(clientX: number, clientY: number, rect: DOMRect): { x: number; y: number } {
@@ -25,35 +26,52 @@ interface TrailPoint {
   birthTime: number;
 }
 
-/** Manages trail and renders fractals — lives inside Canvas for useFrame */
-function FractalWithTrail({
-  c,
-  mouse,
-}: {
-  c: Complex;
-  mouse: { x: number; y: number };
-}) {
+/** Pauses rendering when tab hidden to avoid catch-up spike on return */
+function TabVisibilityHandler() {
+  const set = useThree((s) => s.set);
+  useEffect(() => {
+    const onVisibility = () => {
+      set({ frameloop: document.hidden ? "demand" : "always" });
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, [set]);
+  return null;
+}
+
+/** Manages trail and renders fractals */
+function FractalWithTrail({ c, mouseRef }: { c: Complex; mouseRef: React.RefObject<{ x: number; y: number }> }) {
   const trailRef = useRef<TrailPoint[]>([]);
   const lastAddRef = useRef(0);
+  const lastTimeRef = useRef(0);
 
   useFrame((state) => {
-    const now = state.clock.elapsedTime;
-    const isActive = Math.abs(mouse.x) < 5 && Math.abs(mouse.y) < 5;
+    const delta = Math.min(state.clock.getDelta(), MAX_DELTA);
+    const now = lastTimeRef.current + delta;
+    lastTimeRef.current = now;
+
+    const mouse = mouseRef.current;
+    const isActive = mouse && Math.abs(mouse.x) < 5 && Math.abs(mouse.y) < 5;
 
     if (isActive && now - lastAddRef.current > TRAIL_INTERVAL) {
       trailRef.current.push({ x: mouse.x, y: mouse.y, birthTime: now });
       lastAddRef.current = now;
     }
 
-    trailRef.current = trailRef.current.filter(
-      (p) => now - p.birthTime < HOLD_TIME + FADE_TIME
-    );
+    const cutoff = now - HOLD_TIME - FADE_TIME;
+    let j = 0;
+    for (let i = 0; i < trailRef.current.length; i++) {
+      if (trailRef.current[i].birthTime > cutoff) {
+        trailRef.current[j++] = trailRef.current[i];
+      }
+    }
+    trailRef.current.length = j;
   });
 
   return (
     <>
-      <JuliaSetShader c={c} position="topLeft" mouse={mouse} trailRef={trailRef} />
-      <JuliaSetShader c={c} position="bottomRight" mouse={mouse} trailRef={trailRef} />
+      <JuliaSetShader c={c} position="topLeft" mouseRef={mouseRef} trailRef={trailRef} />
+      <JuliaSetShader c={c} position="bottomRight" mouseRef={mouseRef} trailRef={trailRef} />
     </>
   );
 }
@@ -62,12 +80,12 @@ function FractalWithTrail({
 function JuliaSetShader({
   c,
   position,
-  mouse,
+  mouseRef,
   trailRef,
 }: {
   c: Complex;
   position: "topLeft" | "bottomRight";
-  mouse: { x: number; y: number };
+  mouseRef: React.RefObject<{ x: number; y: number }>;
   trailRef: React.RefObject<TrailPoint[]>;
 }) {
   const trailVecs = useRef(
@@ -78,7 +96,7 @@ function JuliaSetShader({
   const uniforms = useRef({
     uC: { value: new THREE.Vector2(c.re, c.im) },
     uMaxIter: { value: 96 },
-    uMouse: { value: new THREE.Vector2(mouse.x, mouse.y) },
+    uMouse: { value: new THREE.Vector2(FAR, FAR) },
     uRadius: { value: HOVER_RADIUS },
     uTrail: { value: trailVecs },
     uTrailAge: { value: trailAges },
@@ -88,10 +106,15 @@ function JuliaSetShader({
     uTime: { value: 0 },
   });
 
+  const lastTimeRef = useRef(0);
   useFrame((state) => {
+    const delta = Math.min(state.clock.getDelta(), MAX_DELTA);
+    lastTimeRef.current += delta;
+    // Use raw elapsedTime for color cycle (user testing if this caused lag)
     uniforms.current.uTime.value = state.clock.elapsedTime;
-    uniforms.current.uMouse.value.set(mouse.x, mouse.y);
-    const now = state.clock.elapsedTime;
+    const mouse = mouseRef.current;
+    if (mouse) uniforms.current.uMouse.value.set(mouse.x, mouse.y);
+    const now = lastTimeRef.current;
     const trail = trailRef.current;
     const n = Math.min(trail.length, TRAIL_MAX);
     uniforms.current.uTrailCount.value = n;
@@ -126,8 +149,8 @@ function JuliaSetShader({
           uniform float uMaxIter;
           uniform vec2 uMouse;
           uniform float uRadius;
-          uniform vec2 uTrail[16];
-          uniform float uTrailAge[16];
+          uniform vec2 uTrail[12];
+          uniform float uTrailAge[12];
           uniform int uTrailCount;
           uniform float uHoldTime;
           uniform float uFadeTime;
@@ -204,7 +227,7 @@ function JuliaSetShader({
             float dist = length(vNDC - uMouse);
             float blend = 1.0 - smoothstep(uRadius * 0.6, uRadius, dist);
 
-            for (int i = 0; i < 16; i++) {
+            for (int i = 0; i < 12; i++) {
               if (i >= uTrailCount) continue;
               float d = length(vNDC - uTrail[i]);
               float r = 1.0 - smoothstep(uRadius * 0.6, uRadius, d);
@@ -224,10 +247,14 @@ function JuliaSetShader({
   );
 }
 
-export default function JuliaSetScene() {
+interface JuliaSetSceneProps {
+  onReady?: () => void;
+}
+
+export default function JuliaSetScene({ onReady }: JuliaSetSceneProps) {
   const c = C_DEFAULT;
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mouse, setMouse] = useState({ x: FAR, y: FAR });
+  const mouseRef = useRef({ x: FAR, y: FAR });
 
   useEffect(() => {
     const el = containerRef.current;
@@ -236,10 +263,14 @@ export default function JuliaSetScene() {
     const onMove = (e: PointerEvent) => {
       const rect = el.getBoundingClientRect();
       const ndc = screenToNDC(e.clientX, e.clientY, rect);
-      setMouse(ndc);
+      mouseRef.current.x = ndc.x;
+      mouseRef.current.y = ndc.y;
     };
 
-    const onLeave = () => setMouse({ x: FAR, y: FAR });
+    const onLeave = () => {
+      mouseRef.current.x = FAR;
+      mouseRef.current.y = FAR;
+    };
 
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerleave", onLeave);
@@ -260,10 +291,18 @@ export default function JuliaSetScene() {
         }}
         onCreated={({ gl }) => {
           gl.setClearColor(0x000000, 0);
+          if (onReady) {
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                setTimeout(onReady, 400);
+              });
+            });
+          }
         }}
-        dpr={[2, 3]}
+        dpr={[1, 2]}
       >
-        <FractalWithTrail c={c} mouse={mouse} />
+        <TabVisibilityHandler />
+        <FractalWithTrail c={c} mouseRef={mouseRef} />
       </Canvas>
     </div>
   );

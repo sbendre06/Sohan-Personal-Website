@@ -1,18 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
-const RADIUS = 14; // extremely small radius in px
+const RADIUS = 14;
 
-/** Small light attached to cursor over the black background */
+/** Small light attached to cursor — uses direct DOM updates to avoid React re-renders */
 export default function CursorLight() {
-  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
+  const elRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
-    const onLeave = () => setPos(null);
+    const el = elRef.current;
+    if (!el) return;
 
-    window.addEventListener("mousemove", onMove);
+    const onMove = (e: MouseEvent) => {
+      el.style.left = `${e.clientX}px`;
+      el.style.top = `${e.clientY}px`;
+      el.style.display = "";
+    };
+    const onLeave = () => {
+      el.style.display = "none";
+    };
+
+    el.style.display = "none";
+    window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mouseleave", onLeave);
     return () => {
       window.removeEventListener("mousemove", onMove);
@@ -20,14 +30,11 @@ export default function CursorLight() {
     };
   }, []);
 
-  if (!pos) return null;
-
   return (
     <div
+      ref={elRef}
       className="fixed pointer-events-none z-[2]"
       style={{
-        left: pos.x,
-        top: pos.y,
         width: RADIUS * 2,
         height: RADIUS * 2,
         marginLeft: -RADIUS,

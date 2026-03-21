@@ -94,6 +94,10 @@ export default {
           from: { opacity: "0", transform: "translateY(20px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        "loading-dot": {
+          "0%, 100%": { opacity: "0.2" },
+          "50%": { opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -101,6 +105,7 @@ export default {
         "float": "float 6s ease-in-out infinite",
         "pulse-neon": "pulse-neon 3s ease-in-out infinite",
         "slide-up": "slide-up 0.5s ease-out",
+        "loading-dot": "loading-dot 0.8s ease-in-out infinite",
       },
     },
   },
