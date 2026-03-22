@@ -88,6 +88,16 @@
     box-shadow: 0 0 15px hsl(var(--primary) / 0.1), inset 0 0 15px hsl(var(--primary) / 0.05);
   }
 
+  .neon-purple {
+    border-color: rgb(168 85 247 / 0.6);
+    box-shadow: 0 0 20px rgb(168 85 247 / 0.4), 0 0 40px rgb(168 85 247 / 0.2);
+  }
+
+  .neon-purple-text {
+    color: rgb(192 132 252);
+    text-shadow: 0 0 20px rgb(168 85 247 / 0.5);
+  }
+
   .warm-text {
     color: hsl(var(--cream));
   }
