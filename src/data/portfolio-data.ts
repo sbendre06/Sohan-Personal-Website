@@ -32,12 +32,11 @@ export interface ContactSocialLink {
   href: string;
 }
 
-/** Replace hrefs with your real profiles */
 export const contactSocialLinks: ContactSocialLink[] = [
-  { id: "email", label: "Email", href: "mailto:you@example.com" },
-  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/your-profile" },
-  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/your-profile" },
-  { id: "github", label: "GitHub", href: "https://github.com/your-username" },
+  { id: "email", label: "Email", href: "mailto:sohan.bendre@yale.edu" },
+  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/sohan-bendre/" },
+  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/sohanbendre/" },
+  { id: "github", label: "GitHub", href: "https://github.com/sbendre06" },
 ];
 
 export const placeholderExperiences: ExperienceItem[] = [

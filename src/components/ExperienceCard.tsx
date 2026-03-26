@@ -7,12 +7,17 @@ interface ExperienceCardProps {
   onClick: () => void;
   /** Explore panel: match serif body copy; default keeps global/tech styling */
   readable?: boolean;
+  /** Set false to disable opening long-form details (card becomes static; external link still works) */
+  detailOpenable?: boolean;
 }
 
-const ExperienceCard = ({ item, onClick, readable }: ExperienceCardProps) => {
-  const openDetail = () => onClick();
+const ExperienceCard = ({ item, onClick, readable, detailOpenable = true }: ExperienceCardProps) => {
+  const openDetail = () => {
+    if (detailOpenable) onClick();
+  };
 
   const handleCardKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (!detailOpenable) return;
     if (e.target !== e.currentTarget) return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -20,16 +25,22 @@ const ExperienceCard = ({ item, onClick, readable }: ExperienceCardProps) => {
     }
   };
 
+  const interactive = detailOpenable;
+
   return (
     <div
-      role="button"
-      tabIndex={0}
-      onClick={openDetail}
-      onKeyDown={handleCardKeyDown}
+      role={interactive ? "button" : undefined}
+      tabIndex={interactive ? 0 : undefined}
+      onClick={interactive ? openDetail : undefined}
+      onKeyDown={interactive ? handleCardKeyDown : undefined}
       className={
         readable
-          ? "w-full text-left glass-panel p-6 transition-all duration-300 group cursor-pointer hover:border-[hsl(var(--explore-blue-deep)/0.45)] hover:shadow-[0_0_24px_hsl(var(--explore-blue)/0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--explore-blue-deep)/0.5)] rounded-xl"
-          : "w-full text-left glass-panel p-6 hover:neon-border transition-all duration-300 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-xl"
+          ? interactive
+            ? "w-full text-left glass-panel p-6 transition-all duration-300 group cursor-pointer hover:border-[hsl(var(--explore-blue-deep)/0.45)] hover:shadow-[0_0_24px_hsl(var(--explore-blue)/0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--explore-blue-deep)/0.5)] rounded-xl"
+            : "w-full cursor-default text-left glass-panel p-6 transition-all duration-300 rounded-xl"
+          : interactive
+            ? "w-full text-left glass-panel p-6 hover:neon-border transition-all duration-300 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-xl"
+            : "w-full cursor-default text-left glass-panel p-6 transition-all duration-300 rounded-xl"
       }
     >
       <div className="min-w-0">
@@ -38,8 +49,12 @@ const ExperienceCard = ({ item, onClick, readable }: ExperienceCardProps) => {
             <h3
               className={
                 readable
-                  ? "text-lg font-semibold text-slate-800 group-hover:text-[hsl(var(--explore-blue-deep))] transition-colors flex items-center gap-2"
-                  : "text-lg font-semibold text-foreground group-hover:text-primary transition-colors flex items-center gap-2"
+                  ? interactive
+                    ? "text-lg font-semibold text-slate-800 group-hover:text-[hsl(var(--explore-blue-deep))] transition-colors flex items-center gap-2"
+                    : "text-lg font-semibold text-slate-800 flex items-center gap-2"
+                  : interactive
+                    ? "text-lg font-semibold text-foreground group-hover:text-primary transition-colors flex items-center gap-2"
+                    : "text-lg font-semibold text-foreground flex items-center gap-2"
               }
             >
               {item.title}

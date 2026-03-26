@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { X } from "lucide-react";
+import { Cog, X } from "lucide-react";
 import ExperienceCard from "@/components/ExperienceCard";
 import { ContactSkillsContent } from "@/components/ContactSkillsContent";
 import { placeholderExperiences, placeholderProjects, ExperienceItem } from "@/data/portfolio-data";
 
 type Section = "about" | "experience" | "projects" | "contact";
+
+/** Set `true` when experience detail write-ups are ready (card → in-depth view). */
+const EXPERIENCE_LONG_FORM_ENABLED = false;
 
 // Pearl aqua, tea green, tangerine dream, bubblegum pink palette
 const SHAPE_COLORS = [
@@ -370,15 +373,24 @@ const ExplorePage = () => {
             <div className="space-y-4 select-text">
               <h3 className="text-3xl md:text-4xl font-semibold text-[hsl(var(--explore-blue-deep))]">About</h3>
               <p className="text-slate-700 leading-relaxed">
-                I'm a student double majoring in Applied Mathematics and Computing & The Arts,
-                fascinated by the places where rigorous mathematical thinking meets creative
-                expression. My work spans machine learning research, 3D art, and spatial computing
-                — always searching for the geometric structures that connect them.
+                I'm first and foremost a creative mathematician, bridging problems across engineering, art, and technology through quantitative practices and design.
+                My work primarily revolves around machine learning, probabilistic modeling, and 3D visualization, with applications spanning finance, art and design, biotechnology, and more.
+                My approach focuses on building robust systems around underlying mathematical patterns, to find beauty and creativity in problem solving across disciplines.
+              </p>
+              <p className="text-slate-600 leading-relaxed">
+                Currently, I'm a Yale student double majoring in Applied Math and Computing & the Arts, the university's joint computer science - art degree.
+                I've recently held machine learning research roles at PsiThera, a computational drug discovery firm, and RCM Alternatives, an alternative investments and execution infrastructure firm.
+                I also conduct active learning research at Yale's Center for Biodiversity, and this summer, I'll be a visiting researcher at Hong Kong University of Science and Technology (HKUST) in 3D parametric design and generative modeling.
               </p>
               <p className="text-slate-500 leading-relaxed">
-                Replace this with your personal statement. Talk about your journey, what drives you,
-                and where you're headed.
+                Beyond the math and tech space, I enjoy creating art and learning about history and culture. I'm also a competitive soccer and chess player turned hobbyist.
+                I love meeting new people and learning about their stories and perspectives, thank you for stopping by!
               </p>
+              <div className="flex justify-center gap-4 pt-8" aria-hidden>
+                {Array.from({ length: 5 }, (_, i) => (
+                  <Cog key={i} className="h-7 w-7 shrink-0 text-slate-400 sm:h-8 sm:w-8" />
+                ))}
+              </div>
             </div>
           )}
 
@@ -391,7 +403,13 @@ const ExplorePage = () => {
                   </h3>
                   <div className="space-y-3">
                     {placeholderExperiences.map((exp) => (
-                      <ExperienceCard key={exp.id} item={exp} readable onClick={() => setSelectedExp(exp)} />
+                      <ExperienceCard
+                        key={exp.id}
+                        item={exp}
+                        readable
+                        detailOpenable={EXPERIENCE_LONG_FORM_ENABLED}
+                        onClick={() => setSelectedExp(exp)}
+                      />
                     ))}
                   </div>
                 </>
@@ -465,7 +483,10 @@ const ExplorePage = () => {
               ) : (
                 <div className="space-y-3">
                   {placeholderProjects.map((p) => (
-                    <div key={p.id} className="p-4 rounded-xl bg-slate-100/80 border border-slate-200/60">
+                    <div
+                      key={p.id}
+                      className="rounded-xl border border-primary/50 bg-slate-100/80 p-4 shadow-[0_0_14px_hsl(var(--primary)/0.22),0_0_28px_hsl(var(--primary)/0.12),inset_0_0_16px_hsl(var(--primary)/0.06)] transition-[box-shadow,border-color] hover:border-primary/60 hover:shadow-[0_0_20px_hsl(var(--primary)/0.32),0_0_40px_hsl(var(--primary)/0.14),inset_0_0_18px_hsl(var(--primary)/0.08)]"
+                    >
                       <h4 className="font-semibold text-slate-800">{p.title}</h4>
                       <p className="text-sm text-slate-600 mt-1">{p.description}</p>
                     </div>

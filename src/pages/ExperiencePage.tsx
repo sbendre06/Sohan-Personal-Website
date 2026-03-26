@@ -4,6 +4,9 @@ import ExperienceCard from "@/components/ExperienceCard";
 import DetailModal from "@/components/DetailModal";
 import { placeholderExperiences, ExperienceItem } from "@/data/portfolio-data";
 
+/** Set `true` when experience detail write-ups are ready (card → modal). */
+const EXPERIENCE_LONG_FORM_ENABLED = false;
+
 const ExperiencePage = () => {
   const [selected, setSelected] = useState<ExperienceItem | null>(null);
 
@@ -11,10 +14,16 @@ const ExperiencePage = () => {
     <OverlayLayout title="Experience" subtitle="Where theory meets practice.">
       <div className="space-y-4">
         {placeholderExperiences.map((exp) => (
-          <ExperienceCard key={exp.id} item={exp} onClick={() => setSelected(exp)} />
+          <ExperienceCard
+            key={exp.id}
+            item={exp}
+            detailOpenable={EXPERIENCE_LONG_FORM_ENABLED}
+            onClick={() => setSelected(exp)}
+          />
         ))}
       </div>
 
+      {EXPERIENCE_LONG_FORM_ENABLED && (
       <DetailModal
         open={!!selected}
         onOpenChange={() => setSelected(null)}
@@ -40,6 +49,7 @@ const ExperiencePage = () => {
           </a>
         )}
       </DetailModal>
+      )}
     </OverlayLayout>
   );
 };
