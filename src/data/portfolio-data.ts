@@ -81,7 +81,7 @@ export const placeholderExperiences: ExperienceItem[] = [
     company: "RCM Alternatives",
     period: "May 2025 — August 2025",
     description:
-      "Creating supervised ML models for price direction prediction on messy time series data, with specific focus on DL architectures like recurrent neural networks (RNNs) and long short-term memory (LSTM) complexes.",
+      "Created supervised ML models for price direction prediction on messy time series data, with specific focus on DL architectures like recurrent neural networks (RNNs) and long short-term memory (LSTM) complexes.",
     tags: ["scikit-learn", "TensorFlow", "BeautifulSoup", "SciPy", "Git"],
     details:
       "• Designed supervised machine learning models for price direction prediction on messy time series data\n\n• Implemented logistic regression, random forests, support vector machines, and LSTM neural networks\n\n• Feature engineering on market, on-chain, and macroeconomic data\n\n• Wrote a 28-page technical white paper on ML mathematics and methods (under internal review)",

@@ -291,6 +291,26 @@ const ExplorePage = () => {
         ← Back
       </button>
 
+      <footer
+        className="absolute bottom-4 right-4 z-40 text-right text-[0.65rem] sm:text-xs leading-snug text-white/65 pointer-events-none select-text"
+        aria-label="Site credits"
+      >
+        <div className="m-0 flex flex-col items-end gap-1">
+          <span className="flex items-start gap-1.5 text-left max-sm:max-w-[min(100%,18rem)]">
+            <span className="mt-px shrink-0 font-mono text-white/55 leading-none" aria-hidden>
+              &gt;
+            </span>
+            <span>designed and built by Sohan Bendre, made with React, TypeScript and Three.js</span>
+          </span>
+          <span className="flex items-start gap-1.5 text-left max-sm:max-w-[min(100%,18rem)]">
+            <span className="mt-px shrink-0 font-mono text-white/55 leading-none" aria-hidden>
+              &gt;
+            </span>
+            <span>mainpage features a Julia Set with escape-time coloring and animated palette</span>
+          </span>
+        </div>
+      </footer>
+
       {/* Content panel — nearly full viewport with small inset (draggable) */}
       {selectedSection && (
         <div
@@ -419,12 +439,28 @@ const ExplorePage = () => {
           )}
 
           {selectedSection === "projects" && (
-            <div className="space-y-4 select-text">
-              <h3 className="text-3xl md:text-4xl font-semibold text-[hsl(var(--explore-blue-deep))]">Projects</h3>
+            <div className="flex min-h-0 flex-col gap-4 select-text">
+              <div className="flex flex-wrap items-center gap-3 md:gap-4">
+                <h3 className="text-3xl md:text-4xl font-semibold text-[hsl(var(--explore-blue-deep))]">
+                  Projects
+                </h3>
+                <img
+                  src="/under-construction-banner.png"
+                  alt="Under construction"
+                  className="h-10 w-auto max-w-[min(100%,20rem)] origin-center rotate-[-25deg] -translate-x-12 translate-y-10 object-contain object-center sm:h-16 md:h-[3.25rem]"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
               {placeholderProjects.length === 0 ? (
-                <div className="py-8 text-center text-slate-500">
-                  <p className="mb-2">Under Construction</p>
-                  <p className="text-sm">Cool things are being built behind the scenes. Check back soon.</p>
+                <div className="box-border w-[calc(100%+1rem)] max-w-none -mx-2 px-0.5 pb-1 pt-0 sm:w-[calc(100%+1.5rem)] sm:-mx-3 md:w-[calc(100%+2.5rem)] md:-mx-5">
+                  <img
+                    src="/about-artwork.png"
+                    alt="Mixed-media charcoal and paper collage: profile and geometric color emerging from labeled emotion boxes."
+                    className="mx-auto block h-auto max-h-[min(84vh,calc(100vh-10rem))] w-full rounded-md object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
               ) : (
                 <div className="space-y-3">
