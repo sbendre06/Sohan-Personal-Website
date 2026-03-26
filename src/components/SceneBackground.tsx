@@ -14,13 +14,13 @@ export default function SceneBackground() {
     canvas.height = 512;
     const ctx = canvas.getContext("2d")!;
 
-    // Radial gradient: deep center to vibrant edges
+    // Radial gradient: deep center with pearl aqua, tea green, tangerine, bubblegum
     const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 512);
-    gradient.addColorStop(0, "#0f172a");   // deep center
-    gradient.addColorStop(0.3, "#1e1b4b");  // indigo
-    gradient.addColorStop(0.6, "#312e81");  // purple
-    gradient.addColorStop(0.8, "#0c4a6e");  // cyan
-    gradient.addColorStop(1, "#134e4a");    // teal
+    gradient.addColorStop(0, "#0f181a");   // deep center
+    gradient.addColorStop(0.3, "#152a2d");  // dark pearl aqua
+    gradient.addColorStop(0.6, "#2d4a48");  // pearl aqua tint
+    gradient.addColorStop(0.8, "#4a6d6a");  // tea green dark
+    gradient.addColorStop(1, "#5d6d4a");    // tea green / tangerine dark
 
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 512, 512);

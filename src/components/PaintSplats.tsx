@@ -1,14 +1,15 @@
 "use client";
 
+// Pearl aqua, tea green, tangerine dream, bubblegum pink (+ variations)
 const COLORS = [
-  "rgb(255, 80, 100)",
-  "rgb(255, 140, 50)",
-  "rgb(180, 80, 255)",
-  "rgb(255, 120, 180)",
-  "rgb(255, 90, 130)",
-  "rgb(200, 100, 255)",
-  "rgb(255, 160, 80)",
-  "rgb(220, 100, 200)",
+  "rgb(109, 211, 206)",  // pearl aqua
+  "rgb(200, 233, 160)",  // tea green
+  "rgb(247, 162, 120)",  // tangerine dream
+  "rgb(239, 98, 108)",   // bubblegum pink
+  "rgb(90, 185, 180)",   // deeper pearl aqua
+  "rgb(175, 218, 135)",  // deeper tea green
+  "rgb(245, 140, 95)",   // softer tangerine
+  "rgb(220, 85, 95)",    // deeper bubblegum
 ];
 
 // Stochastic offsets from center in vw/vh (top-left cluster: center 14vw, 14vh)

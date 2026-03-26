@@ -16,6 +16,15 @@ export default {
       fontFamily: {
         sans: ["Space Grotesk", "system-ui", "sans-serif"],
         display: ["Space Grotesk", "system-ui", "sans-serif"],
+        /** Long-form / modal copy (Explore popups) */
+        read: [
+          '"Source Serif 4"',
+          "Georgia",
+          "Cambria",
+          '"Times New Roman"',
+          "Times",
+          "serif",
+        ],
         mono: ["JetBrains Mono", "monospace"],
         brush: ["Caveat", "cursive"],
         neon: ["Orbitron", "system-ui", "sans-serif"],

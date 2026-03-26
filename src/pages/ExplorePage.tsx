@@ -2,24 +2,25 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import ExperienceCard from "@/components/ExperienceCard";
-import DetailModal from "@/components/DetailModal";
+import { ContactSkillsContent } from "@/components/ContactSkillsContent";
 import { placeholderExperiences, placeholderProjects, ExperienceItem } from "@/data/portfolio-data";
 
 type Section = "about" | "experience" | "projects" | "contact";
 
-// Paint splat colors + cyan - bokeh palette (teal, cyan, indigo, violet, magenta, wine)
+// Pearl aqua, tea green, tangerine dream, bubblegum pink palette
 const SHAPE_COLORS = [
-  "rgba(34, 211, 238, 0.35)",   // cyan
-  "rgba(45, 212, 191, 0.3)",    // teal
-  "rgba(99, 102, 241, 0.35)",   // indigo
-  "rgba(139, 92, 246, 0.3)",    // violet
-  "rgba(180, 80, 255, 0.35)",   // purple (splat)
-  "rgba(255, 80, 100, 0.3)",    // red-pink (splat)
-  "rgba(255, 120, 180, 0.3)",   // pink (splat)
-  "rgba(220, 100, 200, 0.35)",  // magenta (splat)
-  "rgba(127, 29, 29, 0.4)",     // deep wine
-  "rgba(255, 140, 50, 0.25)",   // orange (splat)
-  "rgba(255, 160, 80, 0.25)",   // orange (splat)
+  "rgba(109, 211, 206, 0.4)",   // pearl aqua
+  "rgba(200, 233, 160, 0.35)",  // tea green
+  "rgba(247, 162, 120, 0.35)",  // tangerine dream
+  "rgba(239, 98, 108, 0.35)",   // bubblegum pink
+  "rgba(90, 185, 180, 0.4)",    // deeper pearl aqua
+  "rgba(175, 218, 135, 0.35)",  // deeper tea green
+  "rgba(245, 140, 95, 0.35)",   // softer tangerine
+  "rgba(220, 85, 95, 0.35)",    // deeper bubblegum
+  "rgba(70, 165, 160, 0.4)",    // dark pearl aqua
+  "rgba(155, 200, 120, 0.3)",   // tea green dark
+  "rgba(235, 115, 75, 0.35)",   // tangerine dark
+  "rgba(255, 130, 140, 0.3)",   // bubblegum light
 ];
 
 // Background shapes: circles + ellipses; some have buttons inside
@@ -70,6 +71,14 @@ const ExplorePage = () => {
   useEffect(() => {
     if (selectedSection) setPopupPosition(null);
   }, [selectedSection]);
+
+  useEffect(() => {
+    if (selectedSection !== "experience") setSelectedExp(null);
+  }, [selectedSection]);
+
+  useEffect(() => {
+    if (selectedExp) popupRef.current?.scrollTo({ top: 0 });
+  }, [selectedExp]);
 
   const clampToViewport = (x: number, y: number) => {
     const rect = popupRef.current?.getBoundingClientRect();
@@ -213,55 +222,55 @@ const ExplorePage = () => {
               radial-gradient(circle 2px at 60% 35%, rgba(200,220,255,0.8), transparent)`,
           }}
         />
-        {/* Star points - light cyan */}
+        {/* Star points - soft pearl aqua tint */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: `radial-gradient(circle 1.5px at 8% 12%, rgba(150, 220, 255, 0.95), transparent),
-              radial-gradient(circle 1px at 22% 8%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 45% 15%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 68% 22%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1.5px at 88% 10%, rgba(150, 220, 255, 0.95), transparent),
-              radial-gradient(circle 1px at 12% 45%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 35% 55%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1px at 58% 48%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 78% 42%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 95% 55%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1.5px at 5% 78%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 28% 72%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1.5px at 55% 85%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 82% 78%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 18% 5%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 52% 5%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1px at 92% 28%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 3% 32%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 38% 38%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1.5px at 72% 62%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 15% 62%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 62% 18%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1px at 48% 72%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 25% 28%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 85% 65%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1.5px at 10% 92%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 42% 92%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 75% 88%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1px at 95% 38%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 2% 55%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 58% 75%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1.5px at 32% 42%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 88% 52%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 18% 88%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1px at 65% 8%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 8% 35%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 45% 62%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1.5px at 78% 25%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 35% 18%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 92% 72%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1px at 5% 48%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 52% 38%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1px at 72% 92%, rgba(150, 220, 255, 0.9), transparent),
-              radial-gradient(circle 1.5px at 28% 52%, rgba(150, 220, 255, 0.85), transparent),
-              radial-gradient(circle 1px at 88% 18%, rgba(150, 220, 255, 0.9), transparent)`,
+            backgroundImage: `radial-gradient(circle 1.5px at 8% 12%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1px at 22% 8%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1.5px at 45% 15%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 68% 22%, rgba(165, 218, 213, 0.8), transparent),
+              radial-gradient(circle 1.5px at 88% 10%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1px at 12% 45%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1.5px at 35% 55%, rgba(165, 218, 213, 0.8), transparent),
+              radial-gradient(circle 1px at 58% 48%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1.5px at 78% 42%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 95% 55%, rgba(165, 218, 213, 0.8), transparent),
+              radial-gradient(circle 1.5px at 5% 78%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 28% 72%, rgba(165, 218, 213, 0.8), transparent),
+              radial-gradient(circle 1.5px at 55% 85%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 82% 78%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 18% 5%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1.5px at 52% 5%, rgba(165, 218, 213, 0.8), transparent),
+              radial-gradient(circle 1px at 92% 28%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1.5px at 3% 32%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 38% 38%, rgba(165, 218, 213, 0.8), transparent),
+              radial-gradient(circle 1.5px at 72% 62%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 15% 62%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1.5px at 62% 18%, rgba(165, 218, 213, 0.8), transparent),
+              radial-gradient(circle 1px at 48% 72%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1.5px at 25% 28%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 85% 65%, rgba(165, 218, 213, 0.8), transparent),
+              radial-gradient(circle 1.5px at 10% 92%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 42% 92%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1.5px at 75% 88%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 95% 38%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1.5px at 2% 55%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1px at 58% 75%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1.5px at 32% 42%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1px at 88% 52%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1.5px at 18% 88%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 65% 8%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1.5px at 8% 35%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1px at 45% 62%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1.5px at 78% 25%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1px at 35% 18%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1.5px at 92% 72%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 5% 48%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1.5px at 52% 38%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1px at 72% 92%, rgba(180, 230, 225, 0.9), transparent),
+              radial-gradient(circle 1.5px at 28% 52%, rgba(180, 230, 225, 0.85), transparent),
+              radial-gradient(circle 1px at 88% 18%, rgba(180, 230, 225, 0.9), transparent)`,
           }}
         />
       </div>
@@ -269,7 +278,7 @@ const ExplorePage = () => {
       {/* Close button */}
       <button
         onClick={(e) => { e.stopPropagation(); navigate("/"); }}
-        className="absolute top-4 right-4 p-2 rounded-lg bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-all z-20 pointer-events-auto"
+        className="absolute top-4 right-4 p-2 rounded-lg bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-all z-40 pointer-events-auto"
       >
         <X className="h-5 w-5" />
       </button>
@@ -277,28 +286,42 @@ const ExplorePage = () => {
       {/* Back button - bottom left */}
       <button
         onClick={(e) => { e.stopPropagation(); navigate("/"); }}
-        className="absolute bottom-4 left-4 px-3 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-all z-20 pointer-events-auto text-sm font-medium"
+        className="absolute bottom-4 left-4 px-3 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-all z-40 pointer-events-auto text-sm font-medium"
       >
         ← Back
       </button>
 
-      {/* Content panel - light cloud-like popup (draggable) */}
+      {/* Content panel — nearly full viewport with small inset (draggable) */}
       {selectedSection && (
-        <div className="absolute inset-0 z-30 pointer-events-none flex items-center justify-center md:inset-4 md:inset-12">
+        <div
+          className="pointer-events-none z-30"
+          style={
+            popupPosition
+              ? {
+                  position: "fixed",
+                  left: popupPosition.x,
+                  top: popupPosition.y,
+                  transform: "translate(-50%, -50%)",
+                  width: "calc(100vw - 6rem)",
+                  height: "calc(100vh - 6rem)",
+                  maxWidth: "calc(100vw - 6rem)",
+                  maxHeight: "calc(100vh - 6rem)",
+                }
+              : {
+                  position: "fixed",
+                  inset: "3rem",
+                  transform: "none",
+                }
+          }
+        >
           <div
             ref={popupRef}
-            className="pointer-events-auto w-full max-w-xl max-h-[85vh] overflow-y-auto animate-slide-up rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 bg-white/85 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.5)_inset] [&_.glass-panel]:bg-slate-100/70 [&_.glass-panel]:border-slate-200/50 [&_.glass-panel]:hover:border-cyan-300/60 [&_.glass-panel:hover]:shadow-[0_0_20px_rgba(34,211,238,0.15)] [&_.text-foreground]:text-slate-800 [&_.text-muted-foreground]:text-slate-600 [&_.text-secondary]:text-slate-700 md:max-w-2xl border-2 border-amber-400/80 select-none"
-            style={{
-              position: "fixed",
-              left: popupPosition ? popupPosition.x : "50%",
-              top: popupPosition ? popupPosition.y : "50%",
-              transform: "translate(-50%, -50%)",
-            }}
+            className="explore-panel-copy pointer-events-auto h-full w-full min-h-0 overflow-y-auto animate-slide-up rounded-2xl p-6 md:p-8 bg-white/85 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.5)_inset] [&_.glass-panel]:bg-slate-100/70 [&_.glass-panel]:border-slate-200/50 [&_.glass-panel]:hover:border-[hsl(var(--explore-blue-deep)/0.55)] [&_.glass-panel:hover]:shadow-[0_0_20px_hsl(var(--explore-blue)/0.18)] [&_.text-foreground]:text-slate-800 [&_.text-muted-foreground]:text-slate-600 [&_.text-secondary]:text-slate-700 border-2 border-amber-400/80"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Drag handle - header bar */}
             <div
-              className="flex items-center gap-4 mb-4 cursor-grab active:cursor-grabbing touch-none"
+              className="flex items-center gap-4 mb-4 cursor-grab active:cursor-grabbing touch-none select-none"
               onMouseDown={(e) => e.button === 0 && startDrag(e.clientX, e.clientY)}
               onTouchStart={(e) => {
                 if (e.touches[0]) {
@@ -308,10 +331,15 @@ const ExplorePage = () => {
               }}
             >
               <button
-                onClick={(e) => { e.stopPropagation(); setSelectedSection(null); }}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (selectedExp) setSelectedExp(null);
+                  else setSelectedSection(null);
+                }}
                 onMouseDown={(e) => e.stopPropagation()}
                 onTouchStart={(e) => e.stopPropagation()}
-                className="text-sm text-slate-500 hover:text-slate-800 shrink-0"
+                className="text-sm text-slate-500 hover:text-[hsl(var(--explore-blue-deep))] shrink-0"
               >
                 ← Back
               </button>
@@ -319,8 +347,8 @@ const ExplorePage = () => {
             </div>
 
           {selectedSection === "about" && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-display font-semibold text-cyan-600">About</h3>
+            <div className="space-y-4 select-text">
+              <h3 className="text-3xl md:text-4xl font-semibold text-[hsl(var(--explore-blue-deep))]">About</h3>
               <p className="text-slate-700 leading-relaxed">
                 I'm a student double majoring in Applied Mathematics and Computing & The Arts,
                 fascinated by the places where rigorous mathematical thinking meets creative
@@ -335,19 +363,64 @@ const ExplorePage = () => {
           )}
 
           {selectedSection === "experience" && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-display font-semibold text-cyan-600">Experience</h3>
-              <div className="space-y-3">
-                {placeholderExperiences.map((exp) => (
-                  <ExperienceCard key={exp.id} item={exp} onClick={() => setSelectedExp(exp)} />
-                ))}
-              </div>
+            <div className="space-y-4 select-text">
+              {!selectedExp ? (
+                <>
+                  <h3 className="text-3xl md:text-4xl font-semibold text-[hsl(var(--explore-blue-deep))]">
+                    Experience
+                  </h3>
+                  <div className="space-y-3">
+                    {placeholderExperiences.map((exp) => (
+                      <ExperienceCard key={exp.id} item={exp} readable onClick={() => setSelectedExp(exp)} />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="space-y-5 pb-4">
+                  <p className="text-xs font-sans uppercase tracking-wider text-slate-500">Experience</p>
+                  <h3 className="text-2xl md:text-3xl font-semibold text-[hsl(var(--explore-blue-deep))] leading-snug">
+                    {selectedExp.title}
+                  </h3>
+                  <p className="text-sm text-slate-600">
+                    {selectedExp.company} · {selectedExp.period}
+                  </p>
+                  {selectedExp.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {selectedExp.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs font-sans font-medium px-2.5 py-1 rounded-full bg-[hsl(var(--explore-blue-deep)/0.1)] text-[hsl(var(--explore-blue-deep))] border border-[hsl(var(--explore-blue-deep)/0.22)]"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {selectedExp.details && (
+                    <div className="space-y-3 text-slate-700 leading-[1.65] text-base">
+                      {selectedExp.details.split("\n\n").map((line, i) => (
+                        <p key={i}>{line}</p>
+                      ))}
+                    </div>
+                  )}
+                  {selectedExp.link && (
+                    <a
+                      href={selectedExp.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-sm font-semibold text-[hsl(var(--explore-blue-deep))] hover:underline"
+                    >
+                      View publication →
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
           {selectedSection === "projects" && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-display font-semibold text-cyan-600">Projects</h3>
+            <div className="space-y-4 select-text">
+              <h3 className="text-3xl md:text-4xl font-semibold text-[hsl(var(--explore-blue-deep))]">Projects</h3>
               {placeholderProjects.length === 0 ? (
                 <div className="py-8 text-center text-slate-500">
                   <p className="mb-2">Under Construction</p>
@@ -367,42 +440,15 @@ const ExplorePage = () => {
           )}
 
           {selectedSection === "contact" && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-display font-semibold text-cyan-600">Contact</h3>
-              <p className="text-slate-700 leading-relaxed">
-                Add your contact information, email, social links, or a contact form here.
-              </p>
+            <div className="space-y-4 select-text">
+              <h3 className="text-3xl md:text-4xl font-semibold text-[hsl(var(--explore-blue-deep))]">Contact</h3>
+              <ContactSkillsContent exploreMode />
             </div>
           )}
           </div>
         </div>
       )}
 
-      <DetailModal
-        open={!!selectedExp}
-        onOpenChange={() => setSelectedExp(null)}
-        title={selectedExp?.title ?? ""}
-        subtitle={selectedExp ? `${selectedExp.company} · ${selectedExp.period}` : ""}
-        tags={selectedExp?.tags}
-      >
-        {selectedExp?.details && (
-          <div className="space-y-2">
-            {selectedExp.details.split("\n\n").map((line, i) => (
-              <p key={i}>{line}</p>
-            ))}
-          </div>
-        )}
-        {selectedExp?.link && (
-          <a
-            href={selectedExp.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-4 text-sm font-mono text-primary hover:underline"
-          >
-            View Publication →
-          </a>
-        )}
-      </DetailModal>
     </div>
   );
 };

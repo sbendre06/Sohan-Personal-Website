@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -16,46 +16,51 @@
     --popover: 240 14% 8%;
     --popover-foreground: 45 20% 90%;
 
-    /* Neon cyan primary */
-    --primary: 175 85% 55%;
+    /* Pearl aqua primary */
+    --primary: 176 52% 63%;
     --primary-foreground: 240 15% 6%;
 
-    /* Warm cream secondary */
-    --secondary: 38 60% 70%;
+    /* Tea green secondary */
+    --secondary: 87 64% 77%;
     --secondary-foreground: 240 15% 6%;
 
     /* Muted deep tones */
     --muted: 240 10% 14%;
     --muted-foreground: 240 8% 55%;
 
-    /* Accent - warm rose-gold */
-    --accent: 15 70% 65%;
+    /* Tangerine dream accent */
+    --accent: 20 89% 72%;
     --accent-foreground: 240 15% 6%;
+
+    /* Bubblegum pink for accents */
+    --accent-pink: 355 82% 66%;
+    --accent-pink-foreground: 240 15% 6%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 10% 18%;
-    --input: 240 10% 18%;
-    --ring: 175 85% 55%;
+    /* Deep pearl aqua border */
+    --border: 176 35% 28%;
+    --input: 176 35% 28%;
+    --ring: 176 52% 63%;
 
     --radius: 0.75rem;
 
     /* Custom tokens */
     --neon-black: 0 0% 4%;
-    --neon-glow: 175 85% 55%;
+    --neon-glow: 176 52% 63%;
     --cream: 42 40% 85%;
     --warm-gold: 38 60% 70%;
     --surface-glass: 240 12% 10%;
 
     --sidebar-background: 240 15% 6%;
     --sidebar-foreground: 45 20% 90%;
-    --sidebar-primary: 175 85% 55%;
+    --sidebar-primary: 176 52% 63%;
     --sidebar-primary-foreground: 240 15% 6%;
     --sidebar-accent: 240 10% 14%;
     --sidebar-accent-foreground: 45 20% 90%;
     --sidebar-border: 240 10% 18%;
-    --sidebar-ring: 175 85% 55%;
+    --sidebar-ring: 176 52% 63%;
   }
 }
 
@@ -73,6 +78,20 @@
   }
 }
 
+@layer components {
+  /* Explore popups: readable serif body copy; headings inherit instead of global display font */
+  .explore-panel-copy {
+    @apply font-read;
+    /* Deeper navy/teal blues for headings, links, and cards (scoped to Explore panel) */
+    --explore-blue: 212 72% 34%;
+    --explore-blue-deep: 214 78% 27%;
+    --explore-blue-muted: 210 55% 38%;
+  }
+  .explore-panel-copy :is(h1, h2, h3, h4, h5, h6) {
+    font-family: inherit;
+  }
+}
+
 @layer utilities {
   .glass-panel {
     @apply bg-card/60 backdrop-blur-xl border border-border/50 rounded-xl;
@@ -80,17 +99,17 @@
 
   .neon-text {
     color: hsl(var(--primary));
-    text-shadow: 0 0 20px hsl(var(--primary) / 0.4), 0 0 40px hsl(var(--primary) / 0.2);
+    text-shadow: 0 0 12px hsl(var(--primary) / 0.25), 0 0 24px hsl(var(--primary) / 0.12);
   }
 
   .neon-border {
-    border-color: hsl(var(--primary) / 0.4);
-    box-shadow: 0 0 15px hsl(var(--primary) / 0.1), inset 0 0 15px hsl(var(--primary) / 0.05);
+    border-color: hsl(var(--primary) / 0.5);
+    box-shadow: 0 0 10px hsl(var(--primary) / 0.08), inset 0 0 10px hsl(var(--primary) / 0.04);
   }
 
   .neon-purple {
-    border-color: rgb(168 85 247 / 0.6);
-    box-shadow: 0 0 20px rgb(168 85 247 / 0.4), 0 0 40px rgb(168 85 247 / 0.2);
+    border-color: hsl(var(--primary) / 0.6);
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.4), 0 0 40px hsl(var(--primary) / 0.2);
   }
 
   .neon-purple-text {
@@ -111,16 +130,37 @@
 
   .gradient-mesh {
     background: 
-      radial-gradient(ellipse at 20% 50%, hsl(var(--primary) / 0.04) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, hsl(var(--accent) / 0.03) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 80%, hsl(var(--secondary) / 0.02) 0%, transparent 50%);
+      radial-gradient(ellipse at 20% 50%, hsl(var(--primary) / 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, hsl(var(--accent) / 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, hsl(var(--secondary) / 0.04) 0%, transparent 50%);
   }
 
   .neon-black-bg {
     background-color: hsl(var(--neon-black));
   }
 
+  .mars-bg {
+    background: linear-gradient(
+      180deg,
+      #1a0f0c 0%,
+      #2d1510 15%,
+      #3d1c14 35%,
+      #4a2218 55%,
+      #3d1a12 75%,
+      #2d1310 90%,
+      #1a0a08 100%
+    );
+  }
+
+  .mars-gradient {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(180, 80, 50, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(200, 90, 60, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 35% at 80% 70%, rgba(160, 70, 45, 0.1) 0%, transparent 45%),
+      radial-gradient(ellipse 100% 80% at 50% 50%, rgba(120, 45, 30, 0.04) 0%, transparent 70%);
+  }
+
   .fractal-glow {
-    box-shadow: 0 0 60px hsl(var(--primary) / 0.08);
+    box-shadow: 0 0 60px hsl(var(--primary) / 0.1);
   }
 }

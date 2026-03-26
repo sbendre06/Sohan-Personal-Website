@@ -158,18 +158,16 @@ function JuliaSetShader({
           varying vec2 vUv;
           varying vec2 vNDC;
 
-          // Cycle: red → orange → purple → pink → red
+          // Cycle: red → purple → magenta/pink → red
           vec3 cycleColor(float t) {
             t = mod(t, 1.0);
-            vec3 red = vec3(1.0, 0.2, 0.3);
-            vec3 orange = vec3(1.0, 0.5, 0.1);
-            vec3 purple = vec3(0.7, 0.25, 1.0);
-            vec3 pink = vec3(1.0, 0.4, 0.7);
-            float s = 1.0 / 4.0;
-            if (t < s) return mix(red, orange, smoothstep(0.0, s, t));
-            if (t < 2.0*s) return mix(orange, purple, smoothstep(s, 2.0*s, t));
-            if (t < 3.0*s) return mix(purple, pink, smoothstep(2.0*s, 3.0*s, t));
-            return mix(pink, red, smoothstep(3.0*s, 1.0, t));
+            vec3 red = vec3(0.92, 0.2, 0.32);
+            vec3 purple = vec3(0.52, 0.22, 0.78);
+            vec3 magentaPink = vec3(0.94, 0.32, 0.68);
+            float s = 1.0 / 3.0;
+            if (t < s) return mix(red, purple, smoothstep(0.0, s, t));
+            if (t < 2.0*s) return mix(purple, magentaPink, smoothstep(s, 2.0*s, t));
+            return mix(magentaPink, red, smoothstep(2.0*s, 1.0, t));
           }
 
           void main() {
@@ -191,10 +189,10 @@ function JuliaSetShader({
 
             float t = iter / uMaxIter;
 
-            // Swapped: cyan on boundary, rotating colors in inner gradient
-            vec3 neonCyan = vec3(0.25, 0.95, 0.9);
+            // Neon cyan boundary + deep blue interior; mid-band still uses rotating red / purple / pink
+            vec3 edgeAccent = vec3(0.35, 0.88, 0.95);
             vec3 cycleColorVal = cycleColor(uTime * 0.125);
-            vec3 accent = vec3(0.95, 0.6, 0.5);
+            vec3 deepNeonBlue = vec3(0.05, 0.38, 0.62);
             vec3 cream = vec3(0.95, 0.9, 0.8);
 
             vec3 col;
@@ -203,16 +201,16 @@ function JuliaSetShader({
               col = vec3(0.0);
               alpha = 0.0;
             } else if (t < 0.08) {
-              col = neonCyan;
+              col = edgeAccent;
               alpha = smoothstep(0.02, 0.08, t) * 0.35;
             } else if (t < 0.35) {
-              col = mix(vec3(0.0), neonCyan, smoothstep(0.08, 0.35, t));
+              col = mix(vec3(0.0), edgeAccent, smoothstep(0.08, 0.35, t));
               alpha = smoothstep(0.08, 0.2, t);
             } else if (t < 0.65) {
-              col = mix(neonCyan, cycleColorVal, (t - 0.35) / 0.3);
+              col = mix(edgeAccent, cycleColorVal, (t - 0.35) / 0.3);
               alpha = 1.0;
             } else {
-              col = mix(cycleColorVal, accent, (t - 0.65) / 0.35);
+              col = mix(cycleColorVal, deepNeonBlue, (t - 0.65) / 0.35);
               alpha = 1.0;
             }
 
@@ -236,7 +234,7 @@ function JuliaSetShader({
               blend = max(blend, trailBlend);
             }
 
-            vec3 grey = vec3(0.35, 0.35, 0.38);
+            vec3 grey = vec3(0.14, 0.22, 0.28);
             col = mix(grey, col, blend);
 
             gl_FragColor = vec4(col, alpha);

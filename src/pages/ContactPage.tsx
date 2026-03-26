@@ -1,11 +1,16 @@
 import OverlayLayout from "@/components/OverlayLayout";
+import { ContactSkillsContent } from "@/components/ContactSkillsContent";
+import { Button } from "@/components/ui/button";
 
 const ContactPage = () => {
   return (
     <OverlayLayout title="Contact" subtitle="Get in touch.">
-      <p className="text-foreground leading-relaxed text-lg">
-        Add your contact information, email, social links, or a contact form here.
-      </p>
+      <ContactSkillsContent />
+      <div className="mt-10 pt-6 border-t border-border">
+        <Button variant="neon" size="lg">
+          Download Resume
+        </Button>
+      </div>
     </OverlayLayout>
   );
 };
