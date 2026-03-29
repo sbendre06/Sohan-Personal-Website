@@ -6,11 +6,11 @@ A mathematical design-focused personal portfolio built with React, Three.js (Rea
 
 ## Landing page: Julia set (GPU escape-time)
 
-The home page background is a deterministic Julia-set visualization: each pixel runs the same quadratic dynamics; there is no random noise in the fragment shader. Color comes from escape-time (iteration count at bailout) plus a time-driven palette in a mid band, with cursor-based mixing toward a dimmed base.
+The home page background is a deterministic Julia-set visualization: color comes from escape-time (iteration count at bailout) plus a time-driven palette in a mid band, with cursor-based mixing toward a dimmed base.
 
 ### Mathematical core
 
-- **Map:** \( f(z) = z^2 + c \), iterated as  
+- **Map:** $\( f(z) = z^2 + c \)$, iterated as  
   \( z \leftarrow z^2 + c \) with \( z = x + iy \) stored as two floats \((z_x, z_y)\).
 - **Parameter \( c \):** `C_DEFAULT` in `src/lib/julia-set.ts`:  
   \( c \approx -0.5125 + 0.5213 i \) (classic Wikipedia-class example; see [Julia set](https://en.wikipedia.org/wiki/Julia_set)).
