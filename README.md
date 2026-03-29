@@ -10,10 +10,9 @@ The home page background is a deterministic Julia-set visualization: color comes
 
 ### Mathematical core
 
-- **Map:** $f(z) = z^2 + c$, iterated as $z \leftarrow z^2 + c$ with $z = x + iy$ stored as two floats $(z_x, z_y)$.
-- **Parameter $c$:** `C_DEFAULT` in `src/lib/julia-set.ts`:  
-  $c \approx -0.5125 + 0.5213i$ (classic Wikipedia-class example; see [Julia set](https://en.wikipedia.org/wiki/Julia_set)).
-- **Per-pixel start:** UVs are scaled by `s = 1.45`, rotated into the complex plane:  
+- **Map:** $f(z) = z^2 + c$, iterated as $z \leftarrow z^2 + c$ with $z = x + iy$ stored as two floats $(z_x, z_y)$
+- **Parameter $c$:** I use $c \approx -0.5125 + 0.5213i$
+- **Per-pixel start:** UVs are scaled by $s = 1.45$, rotated into the complex plane:  
   $c_x = (u-0.5)s + (v-0.5)s$, $c_y = -(u-0.5)s + (v-0.5)s$, then $z \leftarrow (c_x, c_y)$.
 
 ### Escape-time algorithm (fragment shader)
@@ -41,7 +40,7 @@ $$
 4. **Escape-time** `iter` is the number of completed iterations (0 if immediate escape).
 5. **Normalized index** $t = \texttt{iter} / \texttt{uMaxIter}$ with **`uMaxIter = 96`** (normalization only; loop still stops at escape or 128).
 
-Points with **`iter` near max** are treated as interior / non-escaping in the shading path and get a dedicated **cream** fill branch.
+Points with `iter` near max are treated as interior / non-escaping in the shading path.
 
 ### Escape-time coloring (piecewise mapping)
 
@@ -71,11 +70,6 @@ Static accents in the map:
 - **Edge / early exterior:** neon cyan `edgeAccent`.
 - **Deep interior (high $t$):** `deepNeonBlue`.
 - **Filled-set heart:** `cream`.
-
-### Stochasticity
-
-- **Landing Julia scene:** **none** — every frame is fixed by UV, $c$, and time only.
-- **`src/lib/julia-set.ts`** still exposes **Box–Muller** `gaussian()` and `addGaussianOffset` / `generateJuliaPoints` for **grid-based point generation** used elsewhere or for tooling; that path is **not** what draws the live home background.
 
 ### Rendering pipeline
 
@@ -124,5 +118,3 @@ npm run build
 </think>
 
 
-<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>
-StrReplace
