@@ -49,27 +49,13 @@ Let $t = \texttt{iter} / \texttt{uMaxIter}$. The shader maps $t$ to RGB and alph
 | $t$ range | Role |
 |-----------|------|
 | $t < 0.02$ | Transparent (skip). |
-| $0.02 \leq t < 0.08$ | **Neon cyan** edge accent, low alpha ramp. |
-| $0.08 \leq t < 0.35$ | Blend from black to cyan; alpha builds. |
-| $0.35 \leq t < 0.65$ | Blend **cyan** → **`cycleColor(uTime * 0.125)`** (animated band). |
-| $0.65 \leq t \leq 1$ | Blend animated color → **deep blue** interior. |
+| $0.02 \leq t < 0.08$ | **First color** edge accent, low alpha ramp. |
+| $0.08 \leq t < 0.35$ | Blend from black to first color; alpha builds. |
+| $0.35 \leq t < 0.65$ | Blend **first color** → **`cycleColor(uTime * 0.125)`** (animated band). |
+| $0.65 \leq t \leq 1$ | Blend animated color → **second color** interior. |
 | `iter >= uMaxIter - 1` | **Cream** interior highlight (full brightness). |
 
-A separate **brightness** scale `bright = 0.4 + 0.6 * smoothstep(0.08, 0.2, t)` modulates the result before the hover mix (interior cream forces `bright = 1.0`).
-
-### Color animation (`cycleColor`)
-
-`cycleColor(t)` is a **1-period** mix of three RGB stops, **not** stochastic:
-
-1. Red → purple → magenta/pink → red, with `smoothstep` segments over thirds of $[0,1)$.
-2. Driven by **`uTime`** from `state.clock.elapsedTime`, scaled by **`0.125`** in the fragment shader:  
-   `cycleColorVal = cycleColor(uTime * 0.125)` so the mid-band hue **slowly rotates** through red / purple / pink.
-
-Static accents in the map:
-
-- **Edge / early exterior:** neon cyan `edgeAccent`.
-- **Deep interior (high $t$):** `deepNeonBlue`.
-- **Filled-set heart:** `cream`.
+A separate **brightness** scale `bright = 0.4 + 0.6 * smoothstep(0.08, 0.2, t)` modulates the result before the hover mix (interiorcream forces `bright = 1.0`).
 
 ### Rendering pipeline
 
@@ -77,14 +63,6 @@ Static accents in the map:
 - **Two** `mesh` planes (`FractalWithTrail`): same $c$ and uniforms, positions **top-left** and **bottom-right** corners of the view (`[-0.4, 0.5, 0]` and `[0.42, -0.35, 0]`), each **`planeGeometry` 1.1×1.1**.
 - **Material:** `ShaderMaterial` with **transparent: true**, **depthWrite: false**, **fragment** escape loop as above.
 - **Vertex shader:** passes **NDC** `vNDC` (clip.xy / clip.w) for pointer/trail distance tests in **screen-normalized** space.
-
-### Interaction and trail (deterministic given input)
-
-- **Pointer:** window `pointermove` maps client coordinates through the canvas container to **NDC** $[-1,1]^2$.
-- **Uniforms:** `uMouse` (or “far” off-screen when inactive), **`uRadius` ≈ 0.27** (hover disc in NDC space).
-- **Blend:** Outside the disc (and without trail overlap), color is mixed toward a cool **`grey`** so the fractal **dims** away from the cursor.
-- **Trail:** up to **12** past positions sampled every **~0.12 s** (`TRAIL_INTERVAL`); each sample **holds full strength** for **`HOLD_TIME = 1 s`**, then **linear fades** over **`FADE_TIME = 0.8 s`**. Trail uses the same radial falloff as the cursor (`smoothstep` between `0.6 * uRadius` and `uRadius`).
-- **Performance:** `MAX_DELTA` clamps `delta` in `useFrame`; **`TabVisibilityHandler`** sets R3F `frameloop` to **`demand`** when the document is hidden to avoid catch-up spikes.
 
 ### Code map
 
