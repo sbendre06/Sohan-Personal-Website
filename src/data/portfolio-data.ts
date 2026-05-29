@@ -54,18 +54,18 @@ export const placeholderExperiences: ExperienceItem[] = [
   },*/
   {
     id: "exp-2",
-    title: "Data and Machine Learning Intern",
+    title: "Machine Learning Engineer Intern",
     company: "PsiThera (Psivant Therapeutics)",
     period: "March 2026",
     description:
-      "Developed binding affinity prediction models for a computational drug discovery firm, using biology data wrangling and machine learning methods.",
+      "Devised binding affinity regression pipelines for $47.5M Series A AI drug discovery firm, learning molecular dynamics libraries and data structures (MDAnalysis, ProLIF, h5py) from scratch",
     tags: ["PyTorch", "JAX", "scikit-learn", "MDAnalysis", "ProLIF", "Git"],
     details:
       "Working on a binding affinity machine learning project for computational drug discovery firm.\n\nTech stack: PyTorch, JAX, scikit-learn + molecular dynamics libraries (MDAnalysis, ProLIF, h5py).",
   },
   {
     id: "exp-3",
-    title: "Quantitative Research Assistant",
+    title: "Machine Learning Research Assistant",
     company: "Map of Life - Yale Center for Biodiversity, Jetz Lab",
     period: "October 2025 —",
     description:
@@ -76,11 +76,11 @@ export const placeholderExperiences: ExperienceItem[] = [
   },
   {
     id: "exp-4",
-    title: "Machine Learning Research Intern",
+    title: "Quantitative Research Intern",
     company: "RCM Alternatives",
     period: "May 2025 — August 2025",
     description:
-      "Created supervised ML models for price direction prediction on messy time series data, with specific focus on DL architectures like recurrent neural networks (RNNs) and long short-term memory (LSTM) complexes.",
+      "Created supervised ML models for price direction prediction on messy time series data, with specific focus on DL architectures like recurrent neural networks (RNNs) and long short-term memory (LSTM) complexes, to generate signals for traders on options desks.",
     tags: ["scikit-learn", "TensorFlow", "BeautifulSoup", "SciPy", "Git"],
     details:
       "• Designed supervised machine learning models for price direction prediction on messy time series data\n\n• Implemented logistic regression, random forests, support vector machines, and LSTM neural networks\n\n• Feature engineering on market, on-chain, and macroeconomic data\n\n• Wrote a 28-page technical white paper on ML mathematics and methods (under internal review)",
