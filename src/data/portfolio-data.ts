@@ -65,17 +65,6 @@ export const placeholderExperiences: ExperienceItem[] = [
   },
   {
     id: "exp-3",
-    title: "Machine Learning Research Assistant",
-    company: "Map of Life - Yale Center for Biodiversity, Jetz Lab",
-    period: "October 2025 —",
-    description:
-      "Implementing pool-based active learning (AL) strategies for optimization of biodiversity sampling by expected information gain (EIG); running experiments on Yale's high performance computing cluster.",
-    tags: ["R", "terra / sf", "Bash", "Conda", "HPC"],
-    details:
-      "• Conducting research with Dr. Kevin Winner on pool-based active learning strategies for optimization of biodiversity sampling, under limited survey budgets\n\n• Integrated functions of entropy / expected information gain into active learning loop to prioritize high-value ecological sites through AUC plots, running on Yale's high performance computing cluster",
-  },
-  {
-    id: "exp-4",
     title: "Quantitative Research Intern",
     company: "RCM Alternatives",
     period: "May 2025 — August 2025",
@@ -85,6 +74,17 @@ export const placeholderExperiences: ExperienceItem[] = [
     details:
       "• Designed supervised machine learning models for price direction prediction on messy time series data\n\n• Implemented logistic regression, random forests, support vector machines, and LSTM neural networks\n\n• Feature engineering on market, on-chain, and macroeconomic data\n\n• Wrote a 28-page technical white paper on ML mathematics and methods (under internal review)",
     link: "https://github.com/sbendre06/Supervised-Learning-BTC-Price-Direction",
+  },
+  {
+    id: "exp-4",
+    title: "Machine Learning Research Assistant",
+    company: "Map of Life - Yale Center for Biodiversity, Jetz Lab",
+    period: "October 2025 —",
+    description:
+      "Implementing pool-based active learning (AL) strategies for optimization of biodiversity sampling by expected information gain (EIG); running experiments on Yale's high performance computing cluster.",
+    tags: ["R", "terra / sf", "Bash", "Conda", "HPC"],
+    details:
+      "• Conducting research with Dr. Kevin Winner on pool-based active learning strategies for optimization of biodiversity sampling, under limited survey budgets\n\n• Integrated functions of entropy / expected information gain into active learning loop to prioritize high-value ecological sites through AUC plots, running on Yale's high performance computing cluster",
   },
   {
     id: "exp-5",
