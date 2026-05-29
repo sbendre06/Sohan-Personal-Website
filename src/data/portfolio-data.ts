@@ -58,7 +58,7 @@ export const placeholderExperiences: ExperienceItem[] = [
     company: "PsiThera (Psivant Therapeutics)",
     period: "March 2026 - April 2026",
     description:
-      "Devised binding affinity regression pipelines for $47.5M Series A AI drug discovery firm, learning molecular dynamics libraries and data structures (MDAnalysis, ProLIF, h5py) from scratch",
+      "Devised binding affinity regression pipelines for $47.5M Series A AI drug discovery firm, learning molecular dynamics libraries and data structures (MDAnalysis, ProLIF, h5py) from scratch.",
     tags: ["PyTorch", "JAX", "scikit-learn", "MDAnalysis", "ProLIF", "Git"],
     details:
       "Working on a binding affinity machine learning project for computational drug discovery firm.\n\nTech stack: PyTorch, JAX, scikit-learn + molecular dynamics libraries (MDAnalysis, ProLIF, h5py).",
