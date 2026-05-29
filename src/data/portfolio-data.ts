@@ -56,7 +56,7 @@ export const placeholderExperiences: ExperienceItem[] = [
     id: "exp-2",
     title: "Machine Learning Engineer Intern",
     company: "PsiThera (Psivant Therapeutics)",
-    period: "March 2026",
+    period: "March 2026 - April 2026",
     description:
       "Devised binding affinity regression pipelines for $47.5M Series A AI drug discovery firm, learning molecular dynamics libraries and data structures (MDAnalysis, ProLIF, h5py) from scratch",
     tags: ["PyTorch", "JAX", "scikit-learn", "MDAnalysis", "ProLIF", "Git"],
@@ -90,7 +90,7 @@ export const placeholderExperiences: ExperienceItem[] = [
     id: "exp-5",
     title: "Published Academic Research",
     company: "University of Chicago Booth School of Business",
-    period: "January 2022 — February 2023",
+    period: "January 2022 — February 2024",
     description:
       'Evaluation of Elo chess rating system using a Brownian motion model; Wiley peer-reviewed, top 10% most viewed papers for 2023.',
     tags: ["R", "Excel"],
