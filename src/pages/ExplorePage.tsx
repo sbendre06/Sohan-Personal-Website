@@ -458,41 +458,61 @@ const ExplorePage = () => {
 
           {selectedSection === "projects" && (
             <div className="flex min-h-0 flex-col gap-4 select-text">
-              <div className="flex flex-wrap items-center gap-3 md:gap-4">
-                <h3 className="text-3xl md:text-4xl font-semibold text-[hsl(var(--explore-blue-deep))]">
-                  Projects
-                </h3>
-                <img
-                  src="/under-construction-banner.png"
-                  alt="Under construction"
-                  className="h-10 w-auto max-w-[min(100%,20rem)] origin-center rotate-[-25deg] -translate-x-12 translate-y-10 object-contain object-center sm:h-16 md:h-[3.25rem]"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <h3 className="text-3xl md:text-4xl font-semibold text-[hsl(var(--explore-blue-deep))]">
+                Projects
+              </h3>
+              <div className="space-y-3">
+                {placeholderProjects.map((p) => (
+                  <div
+                    key={p.id}
+                    className="rounded-xl border border-slate-200/50 bg-slate-100/70 p-4 transition-[box-shadow,border-color] hover:border-[hsl(var(--explore-blue-deep)/0.45)] hover:shadow-[0_0_24px_hsl(var(--explore-blue)/0.12)]"
+                  >
+                    <h4 className="font-semibold text-slate-800 flex items-center gap-2 flex-wrap">
+                      {p.title}
+                      {p.link && (
+                        <a
+                          href={p.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-sans text-[hsl(var(--explore-blue-muted))] hover:text-[hsl(var(--explore-blue-deep))] underline"
+                        >
+                          {p.linkLabel ?? "whitepaper"}
+                        </a>
+                      )}
+                      {p.githubLink && (
+                        <a
+                          href={p.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-sans text-[hsl(var(--explore-blue-muted))] hover:text-[hsl(var(--explore-blue-deep))] underline"
+                        >
+                          github
+                        </a>
+                      )}
+                    </h4>
+                    <ul className="mt-2 space-y-1">
+                      {p.bullets.map((bullet, i) => (
+                        <li key={i} className="text-sm text-slate-600 leading-relaxed flex gap-2">
+                          <span className="shrink-0 mt-0.5 text-[hsl(var(--explore-blue-deep))]">•</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {p.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mt-3">
+                        {p.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-xs font-sans font-medium px-2 py-0.5 rounded-full bg-[hsl(var(--explore-blue-deep)/0.1)] text-[hsl(var(--explore-blue-deep))] border border-[hsl(var(--explore-blue-deep)/0.22)]"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-              {placeholderProjects.length === 0 ? (
-                <div className="box-border w-[calc(100%+1rem)] max-w-none -mx-2 px-0.5 pb-1 pt-0 sm:w-[calc(100%+1.5rem)] sm:-mx-3 md:w-[calc(100%+2.5rem)] md:-mx-5">
-                  <img
-                    src="/about-artwork.png"
-                    alt="Mixed-media charcoal and paper collage: profile and geometric color emerging from labeled emotion boxes."
-                    className="mx-auto block h-auto max-h-[min(84vh,calc(100vh-10rem))] w-full rounded-md object-contain"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {placeholderProjects.map((p) => (
-                    <div
-                      key={p.id}
-                      className="rounded-xl border border-primary/50 bg-slate-100/80 p-4 shadow-[0_0_14px_hsl(var(--primary)/0.22),0_0_28px_hsl(var(--primary)/0.12),inset_0_0_16px_hsl(var(--primary)/0.06)] transition-[box-shadow,border-color] hover:border-primary/60 hover:shadow-[0_0_20px_hsl(var(--primary)/0.32),0_0_40px_hsl(var(--primary)/0.14),inset_0_0_18px_hsl(var(--primary)/0.08)]"
-                    >
-                      <h4 className="font-semibold text-slate-800">{p.title}</h4>
-                      <p className="text-sm text-slate-600 mt-1">{p.description}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
           )}
 

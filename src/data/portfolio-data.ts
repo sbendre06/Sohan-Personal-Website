@@ -12,11 +12,11 @@ export interface ExperienceItem {
 export interface ProjectItem {
   id: string;
   title: string;
-  description: string;
+  bullets: string[];
   tags: string[];
-  image?: string;
   link?: string;
-  details?: string;
+  linkLabel?: string;
+  githubLink?: string;
 }
 
 export interface SkillCategory {
@@ -100,7 +100,42 @@ export const placeholderExperiences: ExperienceItem[] = [
   },
 ];
 
-export const placeholderProjects: ProjectItem[] = [];
+export const placeholderProjects: ProjectItem[] = [
+  {
+    id: "proj-1",
+    title: "Options Hedging Tradeoffs: Slippage Costs vs. Directional Risk",
+    bullets: [
+      "Built C++ simulation engine processing 400K+ NASDAQ tick events to model delta-hedging of a short straddle, constructing efficient frontier for transaction costs against directional risk across eight hedging threshold values",
+      "Demonstrated a statistically significant 15.3% slippage reduction (p=0.002) by timing hedge execution against Order Flow Imbalance (OFI) signals, validated volatility assumption using Ornstein-Uhlenbeck stochastic process",
+    ],
+    tags: ["C++", "numpy", "pandas", "options theory"],
+    link: "https://drive.google.com/file/d/1bDdtx1xOZu7XO7yXZam7B0faHWd-X5EJ/view?usp=drive_link",
+    githubLink: "https://github.com/sbendre06/delta-rehedge-simulator",
+  },
+  {
+    id: "proj-2",
+    title: "Art Restoration via Latent Rectified Flow",
+    bullets: [
+      "Worked w/ friends from DL theory class to fine-tune a 4B param FLUX.2 diffusion transformer for painting restoration using conditional latent rectified flow, training on ~80K synthetically corrupted WikiArt images using 4 GPUs",
+      "Architecting training loop code (DeepSpeed ZeRO-2) + HuggingFace for model, wandb.ai for tracking",
+    ],
+    tags: ["PyTorch", "HuggingFace", "DeepSpeed", "wandb.ai"],
+    link: "https://drive.google.com/file/d/1lzQMC_aeLje2jlOUOGvVb6Aqv0tWrZT8/view?usp=sharing",
+    githubLink: "https://github.com/calderkatyal/Art-Restoration",
+  },
+  {
+    id: "proj-3",
+    title: "Mario Animation with Forward Kinematics",
+    bullets: [
+      "Applied forward kinematics (FK) + quaternion SLERP (Lie group theory) to create interactive animations from scratch",
+      "Designed full character in Blender with kinematic hierarchy, exported to Three.js for Lie group mechanics and GUI",
+    ],
+    tags: ["Blender", "Three.js", "3D Spatial Computing"],
+    link: "https://glaze-professor-f1a.notion.site/Mario-Forward-Kinematics-FK-Animation-Engine-359a63a6a56e8016bd24c6746bd9edb0?source=copy_link",
+    linkLabel: "notion",
+    githubLink: "https://github.com/sbendre06/Mario-Animation-Engine",
+  },
+];
 
 export const placeholderSkills: SkillCategory[] = [
   { name: "Languages", skills: ["Python", "JavaScript", "HTML", "CSS", "C", "R", "SQL", "Git"] },
